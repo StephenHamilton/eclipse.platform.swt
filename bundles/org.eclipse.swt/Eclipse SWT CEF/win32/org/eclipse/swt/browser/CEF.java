@@ -217,8 +217,9 @@ public void create(Composite parent, int style) {
 }
 
 public boolean back() {
-	// TODO
-	return false;
+	if (cefBrowser.can_go_back() == 0) return false;
+	cefBrowser.go_back();
+	return true;
 }
 
 public boolean close() {
@@ -237,8 +238,9 @@ public boolean execute(String script) {
 }
 
 public boolean forward() {
-	// TODO
-	return false;
+	if (cefBrowser.can_go_forward() == 0) return false;
+	cefBrowser.go_forward();
+	return true;
 }
 
 public String getBrowserType() {
@@ -257,13 +259,11 @@ public String getUrl() {
 }
 
 public boolean isBackEnabled() {
-	// TODO
-	return false;
+	return cefBrowser.can_go_back() != 0;
 }
 
 public boolean isForwardEnabled() {
-	// TODO
-	return false;
+	return cefBrowser.can_go_forward() != 0;
 }
 
 void onDispose(Event e) {
@@ -279,7 +279,7 @@ void onDispose(Event e) {
 }
 
 public void refresh() {
-	// TODO
+	cefBrowser.reload();
 }
 
 public boolean setText(String html, boolean trusted) {
@@ -301,7 +301,7 @@ public boolean setUrl(String url, String postData, String[] headers) {
 }
 
 public void stop() {
-	// TODO
+	cefBrowser.stop_load();
 }
 
 }
