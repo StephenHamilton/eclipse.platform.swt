@@ -12,6 +12,8 @@ package org.eclipse.swt.browser;
 
 
 import java.io.*;
+import java.nio.charset.Charset;
+
 import org.eclipse.swt.*;
 import org.eclipse.swt.internal.*;
 import org.eclipse.swt.internal.cef3.*;
@@ -29,7 +31,11 @@ public class CEF extends WebBrowser {
 	
 	public static cef_string_t STRING_EMPTY;
 	
+	static final String ABOUT_BLANK = "about:blank"; //$NON-NLS-1$
 	static final String CEF3_PATH = "org.eclipse.swt.browser.CEF3Path"; //$NON-NLS-1$
+	static final String CHARSET_UTF16LE = "UTF-16LE"; //$NON-NLS-1$
+	static final String URI_FILEROOT = "file:///"; //$NON-NLS-1$
+	static final int CEF_CHAR_SIZE = 2;
 
 	static {
 		/*
@@ -254,8 +260,41 @@ public String getText() {
 }
 
 public String getUrl() {
-	// TODO
-	return null;
+	long /*int*/ result = cefBrowser.get_main_frame();
+	if (result == 0) {
+		return null;
+	}	
+	CEFFrame frame = new CEFFrame(result);
+	
+	long /*int*/ url = frame.get_url();
+	cef_string_t cefStringUrl = new cef_string_t();
+	CEF3.memmove(cefStringUrl, url, CEF3.cef_string_t_sizeof());
+
+	int length = (int)cefStringUrl.length;
+	byte[] bytes = new byte[length * CEF_CHAR_SIZE];
+	OS.memmove(bytes, cefStringUrl.str, length * CEF_CHAR_SIZE);
+	
+	String javaStringUrl = null;
+	try {
+		javaStringUrl = new String(bytes, 0, length * CEF_CHAR_SIZE, CHARSET_UTF16LE);
+	} catch (UnsupportedEncodingException e) {
+		/* The encoding is a fixed string so no error should be thrown. */
+	}
+	
+	/*
+	 * If the URI indicates that the page is being rendered from memory
+	 * (via setText()) then set it to about:blank to be consistent with IE.
+	 */
+	if (javaStringUrl.equals (URI_FILEROOT)) {
+		javaStringUrl = ABOUT_BLANK;
+	} else {
+		length = URI_FILEROOT.length ();
+		if (javaStringUrl.startsWith (URI_FILEROOT) && javaStringUrl.charAt (length) == '#') {
+			javaStringUrl = ABOUT_BLANK + javaStringUrl.substring (length);
+		}
+	}
+	
+	return javaStringUrl;
 }
 
 public boolean isBackEnabled() {
