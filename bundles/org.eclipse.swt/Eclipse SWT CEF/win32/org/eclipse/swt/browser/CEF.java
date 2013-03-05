@@ -12,7 +12,6 @@ package org.eclipse.swt.browser;
 
 
 import java.io.*;
-import java.nio.charset.Charset;
 
 import org.eclipse.swt.*;
 import org.eclipse.swt.internal.*;
@@ -33,9 +32,7 @@ public class CEF extends WebBrowser {
 	
 	static final String ABOUT_BLANK = "about:blank"; //$NON-NLS-1$
 	static final String CEF3_PATH = "org.eclipse.swt.browser.CEF3Path"; //$NON-NLS-1$
-	static final String CHARSET_UTF16LE = "UTF-16LE"; //$NON-NLS-1$
 	static final String URI_FILEROOT = "file:///"; //$NON-NLS-1$
-	static final int CEF_CHAR_SIZE = 2;
 
 	static {
 		/*
@@ -171,6 +168,16 @@ static long /*int*/ CreateCEFString(String string) {
 	return result;
 }
 
+static String ExtractCEFString(long /*int*/ stringPointer) {
+	cef_string_t cefStringUrl = new cef_string_t();
+	CEF3.memmove(cefStringUrl, stringPointer, CEF3.cef_string_t_sizeof());
+
+	int length = (int)/*64*/cefStringUrl.length;
+	char[] chars = new char[length]; 
+	OS.memmove(chars, cefStringUrl.str, length * 2); 
+	return new String(chars); 
+}
+
 static boolean IsInstalled() {
 	if (!LibraryLoaded) return false;
 	// TODO if CEF3 has API to get its version then verify that it is supported, for now assume that it is
@@ -267,19 +274,7 @@ public String getUrl() {
 	CEFFrame frame = new CEFFrame(result);
 	
 	long /*int*/ url = frame.get_url();
-	cef_string_t cefStringUrl = new cef_string_t();
-	CEF3.memmove(cefStringUrl, url, CEF3.cef_string_t_sizeof());
-
-	int length = (int)cefStringUrl.length;
-	byte[] bytes = new byte[length * CEF_CHAR_SIZE];
-	OS.memmove(bytes, cefStringUrl.str, length * CEF_CHAR_SIZE);
-	
-	String javaStringUrl = null;
-	try {
-		javaStringUrl = new String(bytes, 0, length * CEF_CHAR_SIZE, CHARSET_UTF16LE);
-	} catch (UnsupportedEncodingException e) {
-		/* The encoding is a fixed string so no error should be thrown. */
-	}
+	String javaStringUrl = ExtractCEFString(url); 
 	
 	/*
 	 * If the URI indicates that the page is being rendered from memory
@@ -288,7 +283,7 @@ public String getUrl() {
 	if (javaStringUrl.equals (URI_FILEROOT)) {
 		javaStringUrl = ABOUT_BLANK;
 	} else {
-		length = URI_FILEROOT.length ();
+		int length = URI_FILEROOT.length ();
 		if (javaStringUrl.startsWith (URI_FILEROOT) && javaStringUrl.charAt (length) == '#') {
 			javaStringUrl = ABOUT_BLANK + javaStringUrl.substring (length);
 		}
