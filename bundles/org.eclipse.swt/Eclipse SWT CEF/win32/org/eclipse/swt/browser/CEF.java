@@ -29,6 +29,12 @@ public class CEF extends WebBrowser {
 	long /*int*/ windowHandle;
 	Hashtable ipcAdapters = new Hashtable(9);
 	Hashtable downloads = new Hashtable(9);
+	boolean addressBar = true;
+	boolean menuBar = true;
+	boolean statusBar = true;
+	boolean toolBar = true;
+	Point location = null;
+	Point size = null;
 
 	static boolean LibraryLoaded;
 	static CEFApp App;
@@ -192,6 +198,12 @@ static String ExtractCEFString(long /*int*/ pString) {
 	char[] chars = new char[length]; 
 	OS.memmove(chars, cefString.str, length * 2);
 	return new String(chars); 
+}
+
+static Browser findBrowser (CEFBrowser cefBrowser) {
+	CEFBrowserHost host = new CEFBrowserHost(cefBrowser.get_host());
+	long /*int*/ windowHandle = host.get_window_handle();
+	return (Browser)Display.getCurrent().findWidget(windowHandle);
 }
 
 static boolean IsInstalled() {
@@ -616,6 +628,42 @@ void onTitleChange(String title) {
 	}
 }
 
+void onWindowClose() {
+	WindowEvent newEvent = new WindowEvent(browser);
+	newEvent.display = browser.getDisplay();
+	newEvent.widget = browser;
+	for (int i = 0; i < closeWindowListeners.length; i++) {
+		closeWindowListeners[i].close (newEvent);
+	}
+}
+
+int onWindowOpen(long /*int*/ str_target_url, boolean addressBar, boolean menuBar, boolean statusBar, boolean toolBar, Point location, Point size) {
+	WindowEvent newEvent = new WindowEvent(browser);
+	newEvent.display = browser.getDisplay();
+	newEvent.widget = browser;
+	newEvent.required = true;
+	for (int i = 0; i < openWindowListeners.length; i++) {
+		openWindowListeners[i].open(newEvent);
+	}
+	Browser browser = null;
+	if (newEvent.browser != null && newEvent.browser.webBrowser instanceof CEF) {
+		browser = newEvent.browser;
+	}
+	if (browser != null && !browser.isDisposed ()) {
+		String targetUrl = ExtractCEFString(str_target_url);
+		CEF webBrowser = (CEF)browser.webBrowser;
+		webBrowser.setUrl(targetUrl,null,null);
+		webBrowser.setAddressBar(addressBar);
+		webBrowser.setMenuBar(menuBar);
+		webBrowser.setStatusBar(statusBar);
+		webBrowser.setToolBar(toolBar);
+		webBrowser.setLocation(location);
+		webBrowser.setSize(size);
+		return 1;
+	}
+	return 0;
+}
+
 public void refresh() {
 	if (cefBrowser == null) return;
 	htmlText = null;
@@ -671,6 +719,45 @@ public boolean setUrl(String url, String postData, String[] headers) {
 	cef_string_t strUrl = CreateCEFString(url);
 	frame.load_url(strUrl);
 	return true;
+}
+
+void setAddressBar(boolean addressBar) {
+	this.addressBar = addressBar;
+}
+
+void setMenuBar(boolean menuBar) {
+	this.menuBar = menuBar;
+}
+
+void setStatusBar(boolean statusBar) {
+	this.statusBar = statusBar;
+}
+
+void setToolBar(boolean toolBar) {
+	this.toolBar = toolBar;
+}
+
+void setLocation(Point location) {
+	this.location = location;
+}
+
+void setSize(Point size) {
+	this.size = size;
+}
+
+public void show() {
+	WindowEvent newEvent = new WindowEvent (browser);
+	newEvent.display = browser.getDisplay ();
+	newEvent.widget = browser;
+	newEvent.addressBar = addressBar;
+	newEvent.menuBar = menuBar;
+	newEvent.statusBar = statusBar;
+	newEvent.toolBar = toolBar;
+	newEvent.location = location;
+	newEvent.size = size;
+	for (int i = 0; i < visibilityWindowListeners.length; i++) {
+		visibilityWindowListeners[i].show(newEvent);
+	}
 }
 
 public void stop() {

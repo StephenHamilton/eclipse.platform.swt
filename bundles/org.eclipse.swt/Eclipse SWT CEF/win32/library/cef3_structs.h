@@ -131,6 +131,18 @@ void setcef_main_args_tFields(JNIEnv *env, jobject lpObject, cef_main_args_t *lp
 #define cef_main_args_t_sizeof() 0
 #endif
 
+#ifndef NO_cef_popup_features_t
+void cachecef_popup_features_tFields(JNIEnv *env, jobject lpObject);
+cef_popup_features_t *getcef_popup_features_tFields(JNIEnv *env, jobject lpObject, cef_popup_features_t *lpStruct);
+void setcef_popup_features_tFields(JNIEnv *env, jobject lpObject, cef_popup_features_t *lpStruct);
+#define cef_popup_features_t_sizeof() sizeof(cef_popup_features_t)
+#else
+#define cachecef_popup_features_tFields(a,b)
+#define getcef_popup_features_tFields(a,b,c) NULL
+#define setcef_popup_features_tFields(a,b,c)
+#define cef_popup_features_t_sizeof() 0
+#endif
+
 #ifndef NO_cef_process_message_t
 void cachecef_process_message_tFields(JNIEnv *env, jobject lpObject);
 cef_process_message_t *getcef_process_message_tFields(JNIEnv *env, jobject lpObject, cef_process_message_t *lpStruct);
