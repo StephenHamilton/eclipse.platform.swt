@@ -431,6 +431,85 @@ void setcef_browser_tFields(JNIEnv *env, jobject lpObject, cef_browser_t *lpStru
 }
 #endif
 
+#ifndef NO_cef_context_menu_params_t
+typedef struct cef_context_menu_params_t_FID_CACHE {
+	int cached;
+	jclass clazz;
+	jfieldID get_xcoord, get_ycoord, get_type_flags, get_link_url, get_unfiltered_link_url, get_source_url, is_image_blocked, get_page_url, get_frame_url, get_frame_charset, get_media_type, get_media_state_flags, get_selection_text, is_editable, is_speech_input_enabled, get_edit_state_flags;
+} cef_context_menu_params_t_FID_CACHE;
+
+cef_context_menu_params_t_FID_CACHE cef_context_menu_params_tFc;
+
+void cachecef_context_menu_params_tFields(JNIEnv *env, jobject lpObject)
+{
+	if (cef_context_menu_params_tFc.cached) return;
+	cachecef_base_tFields(env, lpObject);
+	cef_context_menu_params_tFc.clazz = (*env)->GetObjectClass(env, lpObject);
+	cef_context_menu_params_tFc.get_xcoord = (*env)->GetFieldID(env, cef_context_menu_params_tFc.clazz, "get_xcoord", I_J);
+	cef_context_menu_params_tFc.get_ycoord = (*env)->GetFieldID(env, cef_context_menu_params_tFc.clazz, "get_ycoord", I_J);
+	cef_context_menu_params_tFc.get_type_flags = (*env)->GetFieldID(env, cef_context_menu_params_tFc.clazz, "get_type_flags", I_J);
+	cef_context_menu_params_tFc.get_link_url = (*env)->GetFieldID(env, cef_context_menu_params_tFc.clazz, "get_link_url", I_J);
+	cef_context_menu_params_tFc.get_unfiltered_link_url = (*env)->GetFieldID(env, cef_context_menu_params_tFc.clazz, "get_unfiltered_link_url", I_J);
+	cef_context_menu_params_tFc.get_source_url = (*env)->GetFieldID(env, cef_context_menu_params_tFc.clazz, "get_source_url", I_J);
+	cef_context_menu_params_tFc.is_image_blocked = (*env)->GetFieldID(env, cef_context_menu_params_tFc.clazz, "is_image_blocked", I_J);
+	cef_context_menu_params_tFc.get_page_url = (*env)->GetFieldID(env, cef_context_menu_params_tFc.clazz, "get_page_url", I_J);
+	cef_context_menu_params_tFc.get_frame_url = (*env)->GetFieldID(env, cef_context_menu_params_tFc.clazz, "get_frame_url", I_J);
+	cef_context_menu_params_tFc.get_frame_charset = (*env)->GetFieldID(env, cef_context_menu_params_tFc.clazz, "get_frame_charset", I_J);
+	cef_context_menu_params_tFc.get_media_type = (*env)->GetFieldID(env, cef_context_menu_params_tFc.clazz, "get_media_type", I_J);
+	cef_context_menu_params_tFc.get_media_state_flags = (*env)->GetFieldID(env, cef_context_menu_params_tFc.clazz, "get_media_state_flags", I_J);
+	cef_context_menu_params_tFc.get_selection_text = (*env)->GetFieldID(env, cef_context_menu_params_tFc.clazz, "get_selection_text", I_J);
+	cef_context_menu_params_tFc.is_editable = (*env)->GetFieldID(env, cef_context_menu_params_tFc.clazz, "is_editable", I_J);
+	cef_context_menu_params_tFc.is_speech_input_enabled = (*env)->GetFieldID(env, cef_context_menu_params_tFc.clazz, "is_speech_input_enabled", I_J);
+	cef_context_menu_params_tFc.get_edit_state_flags = (*env)->GetFieldID(env, cef_context_menu_params_tFc.clazz, "get_edit_state_flags", I_J);
+	cef_context_menu_params_tFc.cached = 1;
+}
+
+cef_context_menu_params_t *getcef_context_menu_params_tFields(JNIEnv *env, jobject lpObject, cef_context_menu_params_t *lpStruct)
+{
+	if (!cef_context_menu_params_tFc.cached) cachecef_context_menu_params_tFields(env, lpObject);
+	getcef_base_tFields(env, lpObject, (cef_base_t *)lpStruct);
+	lpStruct->get_xcoord = (int (CEF_CALLBACK *)(struct _cef_context_menu_params_t* self))(*env)->GetIntLongField(env, lpObject, cef_context_menu_params_tFc.get_xcoord);
+	lpStruct->get_ycoord = (int (CEF_CALLBACK *)(struct _cef_context_menu_params_t* self))(*env)->GetIntLongField(env, lpObject, cef_context_menu_params_tFc.get_ycoord);
+	lpStruct->get_type_flags = (enum cef_context_menu_type_flags_t (CEF_CALLBACK *)( struct _cef_context_menu_params_t* self))(*env)->GetIntLongField(env, lpObject, cef_context_menu_params_tFc.get_type_flags);
+	lpStruct->get_link_url = (cef_string_userfree_t (CEF_CALLBACK *)( struct _cef_context_menu_params_t* self))(*env)->GetIntLongField(env, lpObject, cef_context_menu_params_tFc.get_link_url);
+	lpStruct->get_unfiltered_link_url = (cef_string_userfree_t (CEF_CALLBACK *)( struct _cef_context_menu_params_t* self))(*env)->GetIntLongField(env, lpObject, cef_context_menu_params_tFc.get_unfiltered_link_url);
+	lpStruct->get_source_url = (cef_string_userfree_t (CEF_CALLBACK *)( struct _cef_context_menu_params_t* self))(*env)->GetIntLongField(env, lpObject, cef_context_menu_params_tFc.get_source_url);
+	lpStruct->is_image_blocked = (int (CEF_CALLBACK *)(struct _cef_context_menu_params_t* self))(*env)->GetIntLongField(env, lpObject, cef_context_menu_params_tFc.is_image_blocked);
+	lpStruct->get_page_url = (cef_string_userfree_t (CEF_CALLBACK *)( struct _cef_context_menu_params_t* self))(*env)->GetIntLongField(env, lpObject, cef_context_menu_params_tFc.get_page_url);
+	lpStruct->get_frame_url = (cef_string_userfree_t (CEF_CALLBACK *)( struct _cef_context_menu_params_t* self))(*env)->GetIntLongField(env, lpObject, cef_context_menu_params_tFc.get_frame_url);
+	lpStruct->get_frame_charset = (cef_string_userfree_t (CEF_CALLBACK *)( struct _cef_context_menu_params_t* self))(*env)->GetIntLongField(env, lpObject, cef_context_menu_params_tFc.get_frame_charset);
+	lpStruct->get_media_type = (enum cef_context_menu_media_type_t (CEF_CALLBACK *)( struct _cef_context_menu_params_t* self))(*env)->GetIntLongField(env, lpObject, cef_context_menu_params_tFc.get_media_type);
+	lpStruct->get_media_state_flags = (enum cef_context_menu_media_state_flags_t ( CEF_CALLBACK *)( struct _cef_context_menu_params_t* self))(*env)->GetIntLongField(env, lpObject, cef_context_menu_params_tFc.get_media_state_flags);
+	lpStruct->get_selection_text = (cef_string_userfree_t (CEF_CALLBACK *)( struct _cef_context_menu_params_t* self))(*env)->GetIntLongField(env, lpObject, cef_context_menu_params_tFc.get_selection_text);
+	lpStruct->is_editable = (int (CEF_CALLBACK *)(struct _cef_context_menu_params_t* self))(*env)->GetIntLongField(env, lpObject, cef_context_menu_params_tFc.is_editable);
+	lpStruct->is_speech_input_enabled = (int (CEF_CALLBACK *)(struct _cef_context_menu_params_t* self))(*env)->GetIntLongField(env, lpObject, cef_context_menu_params_tFc.is_speech_input_enabled);
+	lpStruct->get_edit_state_flags = (enum cef_context_menu_edit_state_flags_t (CEF_CALLBACK *)(struct _cef_context_menu_params_t* self))(*env)->GetIntLongField(env, lpObject, cef_context_menu_params_tFc.get_edit_state_flags);
+	return lpStruct;
+}
+
+void setcef_context_menu_params_tFields(JNIEnv *env, jobject lpObject, cef_context_menu_params_t *lpStruct)
+{
+	if (!cef_context_menu_params_tFc.cached) cachecef_context_menu_params_tFields(env, lpObject);
+	setcef_base_tFields(env, lpObject, (cef_base_t *)lpStruct);
+	(*env)->SetIntLongField(env, lpObject, cef_context_menu_params_tFc.get_xcoord, (jintLong)lpStruct->get_xcoord);
+	(*env)->SetIntLongField(env, lpObject, cef_context_menu_params_tFc.get_ycoord, (jintLong)lpStruct->get_ycoord);
+	(*env)->SetIntLongField(env, lpObject, cef_context_menu_params_tFc.get_type_flags, (jintLong)lpStruct->get_type_flags);
+	(*env)->SetIntLongField(env, lpObject, cef_context_menu_params_tFc.get_link_url, (jintLong)lpStruct->get_link_url);
+	(*env)->SetIntLongField(env, lpObject, cef_context_menu_params_tFc.get_unfiltered_link_url, (jintLong)lpStruct->get_unfiltered_link_url);
+	(*env)->SetIntLongField(env, lpObject, cef_context_menu_params_tFc.get_source_url, (jintLong)lpStruct->get_source_url);
+	(*env)->SetIntLongField(env, lpObject, cef_context_menu_params_tFc.is_image_blocked, (jintLong)lpStruct->is_image_blocked);
+	(*env)->SetIntLongField(env, lpObject, cef_context_menu_params_tFc.get_page_url, (jintLong)lpStruct->get_page_url);
+	(*env)->SetIntLongField(env, lpObject, cef_context_menu_params_tFc.get_frame_url, (jintLong)lpStruct->get_frame_url);
+	(*env)->SetIntLongField(env, lpObject, cef_context_menu_params_tFc.get_frame_charset, (jintLong)lpStruct->get_frame_charset);
+	(*env)->SetIntLongField(env, lpObject, cef_context_menu_params_tFc.get_media_type, (jintLong)lpStruct->get_media_type);
+	(*env)->SetIntLongField(env, lpObject, cef_context_menu_params_tFc.get_media_state_flags, (jintLong)lpStruct->get_media_state_flags);
+	(*env)->SetIntLongField(env, lpObject, cef_context_menu_params_tFc.get_selection_text, (jintLong)lpStruct->get_selection_text);
+	(*env)->SetIntLongField(env, lpObject, cef_context_menu_params_tFc.is_editable, (jintLong)lpStruct->is_editable);
+	(*env)->SetIntLongField(env, lpObject, cef_context_menu_params_tFc.is_speech_input_enabled, (jintLong)lpStruct->is_speech_input_enabled);
+	(*env)->SetIntLongField(env, lpObject, cef_context_menu_params_tFc.get_edit_state_flags, (jintLong)lpStruct->get_edit_state_flags);
+}
+#endif
+
 #ifndef NO_cef_download_item_callback_t
 typedef struct cef_download_item_callback_t_FID_CACHE {
 	int cached;
@@ -778,6 +857,184 @@ void setcef_main_args_tFields(JNIEnv *env, jobject lpObject, cef_main_args_t *lp
 {
 	if (!cef_main_args_tFc.cached) cachecef_main_args_tFields(env, lpObject);
 	(*env)->SetIntLongField(env, lpObject, cef_main_args_tFc.instance, (jintLong)lpStruct->instance);
+}
+#endif
+
+#ifndef NO_cef_menu_model_t
+typedef struct cef_menu_model_t_FID_CACHE {
+	int cached;
+	jclass clazz;
+	jfieldID clear, get_count, add_separator, add_item, add_check_item, add_radio_item, add_sub_menu, insert_separator_at, insert_item_at, insert_check_item_at, insert_radio_item_at, insert_sub_menu_at, remove, remove_at, get_index_of, get_command_id_at, set_command_id_at, get_label, get_label_at, set_label, set_label_at, get_type, get_type_at, get_group_id, get_group_id_at, set_group_id, set_group_id_at, get_sub_menu, get_sub_menu_at, is_visible, is_visible_at, set_visible, set_visible_at, is_enabled, is_enabled_at, set_enabled, set_enabled_at, is_checked, is_checked_at, set_checked, set_checked_at, has_accelerator, has_accelerator_at, set_accelerator, set_accelerator_at, remove_accelerator, remove_accelerator_at, get_accelerator, get_accelerator_at;
+} cef_menu_model_t_FID_CACHE;
+
+cef_menu_model_t_FID_CACHE cef_menu_model_tFc;
+
+void cachecef_menu_model_tFields(JNIEnv *env, jobject lpObject)
+{
+	if (cef_menu_model_tFc.cached) return;
+	cachecef_base_tFields(env, lpObject);
+	cef_menu_model_tFc.clazz = (*env)->GetObjectClass(env, lpObject);
+	cef_menu_model_tFc.clear = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "clear", I_J);
+	cef_menu_model_tFc.get_count = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "get_count", I_J);
+	cef_menu_model_tFc.add_separator = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "add_separator", I_J);
+	cef_menu_model_tFc.add_item = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "add_item", I_J);
+	cef_menu_model_tFc.add_check_item = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "add_check_item", I_J);
+	cef_menu_model_tFc.add_radio_item = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "add_radio_item", I_J);
+	cef_menu_model_tFc.add_sub_menu = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "add_sub_menu", I_J);
+	cef_menu_model_tFc.insert_separator_at = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "insert_separator_at", I_J);
+	cef_menu_model_tFc.insert_item_at = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "insert_item_at", I_J);
+	cef_menu_model_tFc.insert_check_item_at = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "insert_check_item_at", I_J);
+	cef_menu_model_tFc.insert_radio_item_at = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "insert_radio_item_at", I_J);
+	cef_menu_model_tFc.insert_sub_menu_at = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "insert_sub_menu_at", I_J);
+	cef_menu_model_tFc.remove = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "remove", I_J);
+	cef_menu_model_tFc.remove_at = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "remove_at", I_J);
+	cef_menu_model_tFc.get_index_of = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "get_index_of", I_J);
+	cef_menu_model_tFc.get_command_id_at = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "get_command_id_at", I_J);
+	cef_menu_model_tFc.set_command_id_at = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "set_command_id_at", I_J);
+	cef_menu_model_tFc.get_label = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "get_label", I_J);
+	cef_menu_model_tFc.get_label_at = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "get_label_at", I_J);
+	cef_menu_model_tFc.set_label = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "set_label", I_J);
+	cef_menu_model_tFc.set_label_at = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "set_label_at", I_J);
+	cef_menu_model_tFc.get_type = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "get_type", I_J);
+	cef_menu_model_tFc.get_type_at = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "get_type_at", I_J);
+	cef_menu_model_tFc.get_group_id = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "get_group_id", I_J);
+	cef_menu_model_tFc.get_group_id_at = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "get_group_id_at", I_J);
+	cef_menu_model_tFc.set_group_id = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "set_group_id", I_J);
+	cef_menu_model_tFc.set_group_id_at = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "set_group_id_at", I_J);
+	cef_menu_model_tFc.get_sub_menu = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "get_sub_menu", I_J);
+	cef_menu_model_tFc.get_sub_menu_at = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "get_sub_menu_at", I_J);
+	cef_menu_model_tFc.is_visible = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "is_visible", I_J);
+	cef_menu_model_tFc.is_visible_at = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "is_visible_at", I_J);
+	cef_menu_model_tFc.set_visible = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "set_visible", I_J);
+	cef_menu_model_tFc.set_visible_at = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "set_visible_at", I_J);
+	cef_menu_model_tFc.is_enabled = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "is_enabled", I_J);
+	cef_menu_model_tFc.is_enabled_at = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "is_enabled_at", I_J);
+	cef_menu_model_tFc.set_enabled = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "set_enabled", I_J);
+	cef_menu_model_tFc.set_enabled_at = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "set_enabled_at", I_J);
+	cef_menu_model_tFc.is_checked = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "is_checked", I_J);
+	cef_menu_model_tFc.is_checked_at = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "is_checked_at", I_J);
+	cef_menu_model_tFc.set_checked = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "set_checked", I_J);
+	cef_menu_model_tFc.set_checked_at = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "set_checked_at", I_J);
+	cef_menu_model_tFc.has_accelerator = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "has_accelerator", I_J);
+	cef_menu_model_tFc.has_accelerator_at = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "has_accelerator_at", I_J);
+	cef_menu_model_tFc.set_accelerator = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "set_accelerator", I_J);
+	cef_menu_model_tFc.set_accelerator_at = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "set_accelerator_at", I_J);
+	cef_menu_model_tFc.remove_accelerator = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "remove_accelerator", I_J);
+	cef_menu_model_tFc.remove_accelerator_at = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "remove_accelerator_at", I_J);
+	cef_menu_model_tFc.get_accelerator = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "get_accelerator", I_J);
+	cef_menu_model_tFc.get_accelerator_at = (*env)->GetFieldID(env, cef_menu_model_tFc.clazz, "get_accelerator_at", I_J);
+	cef_menu_model_tFc.cached = 1;
+}
+
+cef_menu_model_t *getcef_menu_model_tFields(JNIEnv *env, jobject lpObject, cef_menu_model_t *lpStruct)
+{
+	if (!cef_menu_model_tFc.cached) cachecef_menu_model_tFields(env, lpObject);
+	getcef_base_tFields(env, lpObject, (cef_base_t *)lpStruct);
+	lpStruct->clear = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.clear);
+	lpStruct->get_count = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.get_count);
+	lpStruct->add_separator = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.add_separator);
+	lpStruct->add_item = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int command_id, const cef_string_t* label))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.add_item);
+	lpStruct->add_check_item = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int command_id, const cef_string_t* label))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.add_check_item);
+	lpStruct->add_radio_item = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int command_id, const cef_string_t* label, int group_id))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.add_radio_item);
+	lpStruct->add_sub_menu = (struct _cef_menu_model_t* (CEF_CALLBACK *)( struct _cef_menu_model_t* self, int command_id, const cef_string_t* label))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.add_sub_menu);
+	lpStruct->insert_separator_at = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int index))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.insert_separator_at);
+	lpStruct->insert_item_at = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int index, int command_id, const cef_string_t* label))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.insert_item_at);
+	lpStruct->insert_check_item_at = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int index, int command_id, const cef_string_t* label))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.insert_check_item_at);
+	lpStruct->insert_radio_item_at = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int index, int command_id, const cef_string_t* label, int group_id))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.insert_radio_item_at);
+	lpStruct->insert_sub_menu_at = (struct _cef_menu_model_t* (CEF_CALLBACK *)( struct _cef_menu_model_t* self, int index, int command_id, const cef_string_t* label))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.insert_sub_menu_at);
+	lpStruct->remove = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int command_id))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.remove);
+	lpStruct->remove_at = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int index))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.remove_at);
+	lpStruct->get_index_of = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int command_id))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.get_index_of);
+	lpStruct->get_command_id_at = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int index))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.get_command_id_at);
+	lpStruct->set_command_id_at = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int index, int command_id))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.set_command_id_at);
+	lpStruct->get_label = (cef_string_userfree_t (CEF_CALLBACK *)( struct _cef_menu_model_t* self, int command_id))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.get_label);
+	lpStruct->get_label_at = (cef_string_userfree_t (CEF_CALLBACK *)( struct _cef_menu_model_t* self, int index))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.get_label_at);
+	lpStruct->set_label = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int command_id, const cef_string_t* label))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.set_label);
+	lpStruct->set_label_at = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int index, const cef_string_t* label))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.set_label_at);
+	lpStruct->get_type = (enum cef_menu_item_type_t (CEF_CALLBACK *)( struct _cef_menu_model_t* self, int command_id))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.get_type);
+	lpStruct->get_type_at = (enum cef_menu_item_type_t (CEF_CALLBACK *)( struct _cef_menu_model_t* self, int index))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.get_type_at);
+	lpStruct->get_group_id = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int command_id))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.get_group_id);
+	lpStruct->get_group_id_at = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int index))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.get_group_id_at);
+	lpStruct->set_group_id = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int command_id, int group_id))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.set_group_id);
+	lpStruct->set_group_id_at = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int index, int group_id))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.set_group_id_at);
+	lpStruct->get_sub_menu = (struct _cef_menu_model_t* (CEF_CALLBACK *)( struct _cef_menu_model_t* self, int command_id))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.get_sub_menu);
+	lpStruct->get_sub_menu_at = (struct _cef_menu_model_t* (CEF_CALLBACK *)( struct _cef_menu_model_t* self, int index))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.get_sub_menu_at);
+	lpStruct->is_visible = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int command_id))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.is_visible);
+	lpStruct->is_visible_at = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int index))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.is_visible_at);
+	lpStruct->set_visible = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int command_id, int visible))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.set_visible);
+	lpStruct->set_visible_at = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int index, int visible))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.set_visible_at);
+	lpStruct->is_enabled = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int command_id))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.is_enabled);
+	lpStruct->is_enabled_at = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int index))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.is_enabled_at);
+	lpStruct->set_enabled = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int command_id, int enabled))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.set_enabled);
+	lpStruct->set_enabled_at = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int index, int enabled))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.set_enabled_at);
+	lpStruct->is_checked = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int command_id))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.is_checked);
+	lpStruct->is_checked_at = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int index))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.is_checked_at);
+	lpStruct->set_checked = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int command_id, int checked))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.set_checked);
+	lpStruct->set_checked_at = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int index, int checked))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.set_checked_at);
+	lpStruct->has_accelerator = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int command_id))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.has_accelerator);
+	lpStruct->has_accelerator_at = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int index))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.has_accelerator_at);
+	lpStruct->set_accelerator = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int command_id, int key_code, int shift_pressed, int ctrl_pressed, int alt_pressed))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.set_accelerator);
+	lpStruct->set_accelerator_at = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int index, int key_code, int shift_pressed, int ctrl_pressed, int alt_pressed))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.set_accelerator_at);
+	lpStruct->remove_accelerator = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int command_id))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.remove_accelerator);
+	lpStruct->remove_accelerator_at = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int index))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.remove_accelerator_at);
+	lpStruct->get_accelerator = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int command_id, int* key_code, int* shift_pressed, int* ctrl_pressed, int* alt_pressed))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.get_accelerator);
+	lpStruct->get_accelerator_at = (int (CEF_CALLBACK *)(struct _cef_menu_model_t* self, int index, int* key_code, int* shift_pressed, int* ctrl_pressed, int* alt_pressed))(*env)->GetIntLongField(env, lpObject, cef_menu_model_tFc.get_accelerator_at);
+	return lpStruct;
+}
+
+void setcef_menu_model_tFields(JNIEnv *env, jobject lpObject, cef_menu_model_t *lpStruct)
+{
+	if (!cef_menu_model_tFc.cached) cachecef_menu_model_tFields(env, lpObject);
+	setcef_base_tFields(env, lpObject, (cef_base_t *)lpStruct);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.clear, (jintLong)lpStruct->clear);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.get_count, (jintLong)lpStruct->get_count);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.add_separator, (jintLong)lpStruct->add_separator);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.add_item, (jintLong)lpStruct->add_item);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.add_check_item, (jintLong)lpStruct->add_check_item);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.add_radio_item, (jintLong)lpStruct->add_radio_item);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.add_sub_menu, (jintLong)lpStruct->add_sub_menu);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.insert_separator_at, (jintLong)lpStruct->insert_separator_at);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.insert_item_at, (jintLong)lpStruct->insert_item_at);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.insert_check_item_at, (jintLong)lpStruct->insert_check_item_at);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.insert_radio_item_at, (jintLong)lpStruct->insert_radio_item_at);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.insert_sub_menu_at, (jintLong)lpStruct->insert_sub_menu_at);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.remove, (jintLong)lpStruct->remove);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.remove_at, (jintLong)lpStruct->remove_at);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.get_index_of, (jintLong)lpStruct->get_index_of);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.get_command_id_at, (jintLong)lpStruct->get_command_id_at);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.set_command_id_at, (jintLong)lpStruct->set_command_id_at);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.get_label, (jintLong)lpStruct->get_label);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.get_label_at, (jintLong)lpStruct->get_label_at);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.set_label, (jintLong)lpStruct->set_label);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.set_label_at, (jintLong)lpStruct->set_label_at);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.get_type, (jintLong)lpStruct->get_type);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.get_type_at, (jintLong)lpStruct->get_type_at);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.get_group_id, (jintLong)lpStruct->get_group_id);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.get_group_id_at, (jintLong)lpStruct->get_group_id_at);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.set_group_id, (jintLong)lpStruct->set_group_id);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.set_group_id_at, (jintLong)lpStruct->set_group_id_at);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.get_sub_menu, (jintLong)lpStruct->get_sub_menu);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.get_sub_menu_at, (jintLong)lpStruct->get_sub_menu_at);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.is_visible, (jintLong)lpStruct->is_visible);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.is_visible_at, (jintLong)lpStruct->is_visible_at);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.set_visible, (jintLong)lpStruct->set_visible);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.set_visible_at, (jintLong)lpStruct->set_visible_at);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.is_enabled, (jintLong)lpStruct->is_enabled);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.is_enabled_at, (jintLong)lpStruct->is_enabled_at);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.set_enabled, (jintLong)lpStruct->set_enabled);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.set_enabled_at, (jintLong)lpStruct->set_enabled_at);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.is_checked, (jintLong)lpStruct->is_checked);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.is_checked_at, (jintLong)lpStruct->is_checked_at);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.set_checked, (jintLong)lpStruct->set_checked);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.set_checked_at, (jintLong)lpStruct->set_checked_at);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.has_accelerator, (jintLong)lpStruct->has_accelerator);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.has_accelerator_at, (jintLong)lpStruct->has_accelerator_at);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.set_accelerator, (jintLong)lpStruct->set_accelerator);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.set_accelerator_at, (jintLong)lpStruct->set_accelerator_at);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.remove_accelerator, (jintLong)lpStruct->remove_accelerator);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.remove_accelerator_at, (jintLong)lpStruct->remove_accelerator_at);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.get_accelerator, (jintLong)lpStruct->get_accelerator);
+	(*env)->SetIntLongField(env, lpObject, cef_menu_model_tFc.get_accelerator_at, (jintLong)lpStruct->get_accelerator_at);
 }
 #endif
 

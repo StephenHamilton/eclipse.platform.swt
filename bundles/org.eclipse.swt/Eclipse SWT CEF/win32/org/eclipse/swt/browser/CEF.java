@@ -386,6 +386,26 @@ public boolean isForwardEnabled() {
 	return cefBrowser != null && cefBrowser.can_go_forward() != 0;
 }
 
+int onContextMenu(int xCoord, int yCoord) {
+	Event event = new Event();
+	event.x = xCoord;
+	event.y = yCoord;
+	browser.notifyListeners (SWT.MenuDetect, event);
+	if (event.doit) {
+		Menu menu = browser.getMenu();
+		if (menu != null && !menu.isDisposed()) {
+			if (event.x != xCoord || event.y != yCoord) {
+				menu.setLocation(event.x, event.y);
+			}
+			menu.setVisible(true);
+		}
+		else {
+			return 0;
+		}
+	}
+	return 1;
+}
+
 void onDispose(Event e) {
 	htmlText = null;
 

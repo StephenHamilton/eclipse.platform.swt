@@ -76,6 +76,13 @@ public static final native void memmove(cef_before_download_callback_t dest, lon
  * @param src cast=(const void *)
  * @param size cast=(size_t)
  */
+public static final native void memmove(cef_context_menu_params_t dest, long /*int*/ src, long /*int*/ size);
+
+/**
+ * @param dest cast=(void *),flags=no_in critical
+ * @param src cast=(const void *)
+ * @param size cast=(size_t)
+ */
 public static final native void memmove(cef_download_item_t dest, long /*int*/ src, long /*int*/ size);
 
 /**
@@ -97,6 +104,13 @@ public static final native void memmove(cef_frame_t dest, long /*int*/ src, long
  * @param size cast=(size_t)
  */
 public static final native void memmove(cef_list_value_t dest, long /*int*/ src, long /*int*/ size);
+
+/**
+ * @param dest cast=(void *),flags=no_in critical
+ * @param src cast=(const void *)
+ * @param size cast=(size_t)
+ */
+public static final native void memmove(cef_menu_model_t dest, long /*int*/ src, long /*int*/ size);
 
 /**
  * @param dest cast=(void *),flags=no_in critical
@@ -152,6 +166,7 @@ public static final native int cef_browser_t_sizeof();
 public static final native int cef_browser_host_t_sizeof();
 public static final native int cef_browser_settings_t_sizeof();
 public static final native int cef_before_download_callback_t_sizeof();
+public static final native int cef_context_menu_params_t_sizeof();
 public static final native int cef_download_item_t_sizeof();
 public static final native int cef_download_item_callback_t_sizeof();
 public static final native int cef_frame_t_sizeof();

@@ -71,6 +71,18 @@ void setcef_browser_tFields(JNIEnv *env, jobject lpObject, cef_browser_t *lpStru
 #define cef_browser_t_sizeof() 0
 #endif
 
+#ifndef NO_cef_context_menu_params_t
+void cachecef_context_menu_params_tFields(JNIEnv *env, jobject lpObject);
+cef_context_menu_params_t *getcef_context_menu_params_tFields(JNIEnv *env, jobject lpObject, cef_context_menu_params_t *lpStruct);
+void setcef_context_menu_params_tFields(JNIEnv *env, jobject lpObject, cef_context_menu_params_t *lpStruct);
+#define cef_context_menu_params_t_sizeof() sizeof(cef_context_menu_params_t)
+#else
+#define cachecef_context_menu_params_tFields(a,b)
+#define getcef_context_menu_params_tFields(a,b,c) NULL
+#define setcef_context_menu_params_tFields(a,b,c)
+#define cef_context_menu_params_t_sizeof() 0
+#endif
+
 #ifndef NO_cef_download_item_callback_t
 void cachecef_download_item_callback_tFields(JNIEnv *env, jobject lpObject);
 cef_download_item_callback_t *getcef_download_item_callback_tFields(JNIEnv *env, jobject lpObject, cef_download_item_callback_t *lpStruct);
@@ -129,6 +141,18 @@ void setcef_main_args_tFields(JNIEnv *env, jobject lpObject, cef_main_args_t *lp
 #define getcef_main_args_tFields(a,b,c) NULL
 #define setcef_main_args_tFields(a,b,c)
 #define cef_main_args_t_sizeof() 0
+#endif
+
+#ifndef NO_cef_menu_model_t
+void cachecef_menu_model_tFields(JNIEnv *env, jobject lpObject);
+cef_menu_model_t *getcef_menu_model_tFields(JNIEnv *env, jobject lpObject, cef_menu_model_t *lpStruct);
+void setcef_menu_model_tFields(JNIEnv *env, jobject lpObject, cef_menu_model_t *lpStruct);
+#define cef_menu_model_t_sizeof() sizeof(cef_menu_model_t)
+#else
+#define cachecef_menu_model_tFields(a,b)
+#define getcef_menu_model_tFields(a,b,c) NULL
+#define setcef_menu_model_tFields(a,b,c)
+#define cef_menu_model_t_sizeof() 0
 #endif
 
 #ifndef NO_cef_process_message_t

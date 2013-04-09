@@ -88,6 +88,7 @@ char * CEF3_nativeFunctionNames[] = {
 	"cef_1browser_1settings_1t_1sizeof",
 	"cef_1browser_1t_1sizeof",
 	"cef_1build_1revision",
+	"cef_1context_1menu_1params_1t_1sizeof",
 	"cef_1download_1item_1callback_1t_1sizeof",
 	"cef_1download_1item_1t_1sizeof",
 	"cef_1execute_1process",
@@ -121,6 +122,11 @@ char * CEF3_nativeFunctionNames[] = {
 	"memmove__Lorg_eclipse_swt_internal_cef3_cef_1browser_1t_2JJ",
 #endif
 #ifndef JNI64
+	"memmove__Lorg_eclipse_swt_internal_cef3_cef_1context_1menu_1params_1t_2II",
+#else
+	"memmove__Lorg_eclipse_swt_internal_cef3_cef_1context_1menu_1params_1t_2JJ",
+#endif
+#ifndef JNI64
 	"memmove__Lorg_eclipse_swt_internal_cef3_cef_1download_1item_1callback_1t_2II",
 #else
 	"memmove__Lorg_eclipse_swt_internal_cef3_cef_1download_1item_1callback_1t_2JJ",
@@ -139,6 +145,11 @@ char * CEF3_nativeFunctionNames[] = {
 	"memmove__Lorg_eclipse_swt_internal_cef3_cef_1list_1value_1t_2II",
 #else
 	"memmove__Lorg_eclipse_swt_internal_cef3_cef_1list_1value_1t_2JJ",
+#endif
+#ifndef JNI64
+	"memmove__Lorg_eclipse_swt_internal_cef3_cef_1menu_1model_1t_2II",
+#else
+	"memmove__Lorg_eclipse_swt_internal_cef3_cef_1menu_1model_1t_2JJ",
 #endif
 #ifndef JNI64
 	"memmove__Lorg_eclipse_swt_internal_cef3_cef_1process_1message_1t_2II",

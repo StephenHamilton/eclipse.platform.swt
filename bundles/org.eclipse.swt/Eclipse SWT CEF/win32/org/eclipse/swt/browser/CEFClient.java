@@ -107,7 +107,7 @@ synchronized int release() {
 long /*int*/ get_context_menu_handler() {
 	if (Device.DEBUG) System.out.println("get_context_menu_handler (impl)");
 	if (contextMenuHandler == null) {
-		contextMenuHandler = new CEFContextMenuHandler();
+		contextMenuHandler = new CEFContextMenuHandler(host);
 	}
 	contextMenuHandler.add_ref();
 	return contextMenuHandler.getAddress();
