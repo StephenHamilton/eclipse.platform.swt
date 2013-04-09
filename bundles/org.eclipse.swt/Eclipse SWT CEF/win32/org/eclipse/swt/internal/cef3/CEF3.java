@@ -110,7 +110,17 @@ public static final native void memmove(cef_list_value_t dest, long /*int*/ src,
  * @param src cast=(const void *)
  * @param size cast=(size_t)
  */
+
 public static final native void memmove(cef_menu_model_t dest, long /*int*/ src, long /*int*/ size);
+
+/**
+ * @param dest cast=(void *),flags=no_in critical
+ * @param src cast=(const void *)
+ * @param size cast=(size_t)
+ */
+
+public static final native void memmove(cef_popup_features_t dest, long /*int*/ src, long /*int*/ size);
+
 
 /**
  * @param dest cast=(void *),flags=no_in critical
@@ -171,6 +181,7 @@ public static final native int cef_download_item_t_sizeof();
 public static final native int cef_download_item_callback_t_sizeof();
 public static final native int cef_frame_t_sizeof();
 public static final native int cef_list_value_t_sizeof();
+public static final native int cef_popup_features_t_sizeof();
 public static final native int cef_process_message_t_sizeof();
 public static final native int cef_settings_t_sizeof();
 public static final native int cef_string_t_sizeof();

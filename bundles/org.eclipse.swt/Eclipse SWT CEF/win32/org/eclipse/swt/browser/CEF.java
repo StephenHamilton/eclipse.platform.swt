@@ -29,6 +29,14 @@ public class CEF extends WebBrowser {
 	long /*int*/ windowHandle;
 	Hashtable ipcAdapters = new Hashtable(9);
 	Hashtable downloads = new Hashtable(9);
+	boolean addressBar = true;
+	boolean menuBar = true;
+	boolean statusBar = true;
+	boolean toolBar = true;
+	Point location = null;
+	Point size = null;
+	cef_popup_features_t features = null;
+	CEF parentBrowser = null;
 
 	static boolean LibraryLoaded;
 	static CEFApp App;
@@ -194,6 +202,12 @@ static String ExtractCEFString(long /*int*/ pString) {
 	return new String(chars); 
 }
 
+static Browser findBrowser (CEFBrowser cefBrowser) {
+	CEFBrowserHost host = new CEFBrowserHost(cefBrowser.get_host());
+	long /*int*/ windowHandle = host.get_window_handle();
+	return (Browser)Display.getCurrent().findWidget(windowHandle);
+}
+
 static boolean IsInstalled() {
 	if (!LibraryLoaded) return false;
 	if (CEF3.cef_build_revision() != CEF3_SUPPORTED_REVISON) return false;
@@ -285,6 +299,11 @@ void browserCreated(long /*int*/ handle) {
 		setUrl((String)pendingUrl[0], (String)pendingUrl[1], (String[])pendingUrl[2]);
 	}
 	pendingText = pendingUrl = null;
+	
+	if (features != null) {
+		parentBrowser.show(this);
+		features = null;
+	}
 }
 
 public Object evaluate (String script) throws SWTException {
@@ -636,6 +655,38 @@ void onTitleChange(String title) {
 	}
 }
 
+void onWindowClose() {
+	WindowEvent newEvent = new WindowEvent(browser);
+	newEvent.display = browser.getDisplay();
+	newEvent.widget = browser;
+	for (int i = 0; i < closeWindowListeners.length; i++) {
+		closeWindowListeners[i].close (newEvent);
+	}
+}
+
+int onWindowOpen(long /*int*/ str_target_url, cef_popup_features_t features) {
+	WindowEvent newEvent = new WindowEvent(browser);
+	newEvent.display = browser.getDisplay();
+	newEvent.widget = browser;
+	newEvent.required = false;
+	for (int i = 0; i < openWindowListeners.length; i++) {
+		openWindowListeners[i].open(newEvent);
+	}
+	Browser browser = null;
+	if (newEvent.browser != null && newEvent.browser.webBrowser instanceof CEF) {
+		browser = newEvent.browser;
+	}
+	if (browser != null && !browser.isDisposed ()) {
+		String targetUrl = ExtractCEFString(str_target_url);
+		CEF webBrowser = (CEF)browser.webBrowser;
+		webBrowser.setUrl(targetUrl,null,null);
+		webBrowser.setPopupFeatures(features);
+		webBrowser.setParentBrowser(this);
+		return 1;
+	}
+	return 0;
+}
+
 public void refresh() {
 	if (cefBrowser == null) return;
 	htmlText = null;
@@ -691,6 +742,82 @@ public boolean setUrl(String url, String postData, String[] headers) {
 	cef_string_t strUrl = CreateCEFString(url);
 	frame.load_url(strUrl);
 	return true;
+}
+
+void setAddressBar(boolean addressBar) {
+	this.addressBar = addressBar;
+}
+
+void setMenuBar(boolean menuBar) {
+	this.menuBar = menuBar;
+}
+
+void setStatusBar(boolean statusBar) {
+	this.statusBar = statusBar;
+}
+
+void setToolBar(boolean toolBar) {
+	this.toolBar = toolBar;
+}
+
+void setPopupFeatures(cef_popup_features_t features) {
+	this.features = features;
+}
+
+void setParentBrowser(CEF parent) {
+	this.parentBrowser = parent;
+}
+
+void setLocation(Point location) {
+	this.location = location;
+}
+
+void setSize(Point size) {
+	this.size = size;
+}
+
+public void show(CEF child) {
+	cef_popup_features_t features = child.features;
+	final WindowEvent newEvent = new WindowEvent (child.browser);
+	newEvent.display = child.browser.getDisplay();
+	newEvent.widget = child.browser;
+	newEvent.addressBar = features.locationBarVisible == 1;
+	newEvent.menuBar = features.menuBarVisible == 1;
+	newEvent.statusBar = features.statusBarVisible == 1;
+	newEvent.toolBar = features.toolBarVisible == 1;
+	final Point location;
+	if (features.ySet == 1 && features.xSet == 1) {
+		location = new Point(features.x, features.y);
+	}
+	else {
+		location = null;
+	}
+
+	final Point size;
+	if (features.widthSet == 1) {
+		if (features.heightSet == 1) {
+			size = new Point(features.width, features.height);
+		}
+		else {
+			size = new Point(features.width, this.browser.getSize().y);
+		}
+	}
+	else if (features.heightSet == 1) {
+		size = new Point(this.browser.getSize().y, features.height);
+	}
+	else {
+		size = null;
+	}
+	newEvent.location = location;
+	newEvent.size = size;
+	final VisibilityWindowListener[] visibilityWindowListeners = this.visibilityWindowListeners;
+	browser.getDisplay().asyncExec(new Runnable() {
+		public void run() {
+			for (int i = 0; i < visibilityWindowListeners.length; i++) {
+				visibilityWindowListeners[i].show(newEvent);
+			}
+		}
+	});
 }
 
 public void stop() {

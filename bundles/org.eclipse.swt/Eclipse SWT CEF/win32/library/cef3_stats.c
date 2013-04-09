@@ -95,6 +95,7 @@ char * CEF3_nativeFunctionNames[] = {
 	"cef_1frame_1t_1sizeof",
 	"cef_1initialize",
 	"cef_1list_1value_1t_1sizeof",
+	"cef_1popup_1features_1t_1sizeof",
 	"cef_1process_1message_1create",
 	"cef_1process_1message_1t_1sizeof",
 	"cef_1settings_1t_1sizeof",
@@ -150,6 +151,11 @@ char * CEF3_nativeFunctionNames[] = {
 	"memmove__Lorg_eclipse_swt_internal_cef3_cef_1menu_1model_1t_2II",
 #else
 	"memmove__Lorg_eclipse_swt_internal_cef3_cef_1menu_1model_1t_2JJ",
+#endif
+#ifndef JNI64
+	"memmove__Lorg_eclipse_swt_internal_cef3_cef_1popup_1features_1t_2II",
+#else
+	"memmove__Lorg_eclipse_swt_internal_cef3_cef_1popup_1features_1t_2JJ",
 #endif
 #ifndef JNI64
 	"memmove__Lorg_eclipse_swt_internal_cef3_cef_1process_1message_1t_2II",

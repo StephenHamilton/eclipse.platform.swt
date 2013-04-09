@@ -1038,6 +1038,85 @@ void setcef_menu_model_tFields(JNIEnv *env, jobject lpObject, cef_menu_model_t *
 }
 #endif
 
+#ifndef NO_cef_popup_features_t
+typedef struct cef_popup_features_t_FID_CACHE {
+	int cached;
+	jclass clazz;
+	jfieldID x, xSet, y, ySet, width, widthSet, height, heightSet, menuBarVisible, statusBarVisible, toolBarVisible, locationBarVisible, scrollbarsVisible, resizable, fullscreen, dialog, additionalFeatures;
+} cef_popup_features_t_FID_CACHE;
+
+cef_popup_features_t_FID_CACHE cef_popup_features_tFc;
+
+void cachecef_popup_features_tFields(JNIEnv *env, jobject lpObject)
+{
+	if (cef_popup_features_tFc.cached) return;
+	cef_popup_features_tFc.clazz = (*env)->GetObjectClass(env, lpObject);
+	cef_popup_features_tFc.x = (*env)->GetFieldID(env, cef_popup_features_tFc.clazz, "x", "I");
+	cef_popup_features_tFc.xSet = (*env)->GetFieldID(env, cef_popup_features_tFc.clazz, "xSet", "I");
+	cef_popup_features_tFc.y = (*env)->GetFieldID(env, cef_popup_features_tFc.clazz, "y", "I");
+	cef_popup_features_tFc.ySet = (*env)->GetFieldID(env, cef_popup_features_tFc.clazz, "ySet", "I");
+	cef_popup_features_tFc.width = (*env)->GetFieldID(env, cef_popup_features_tFc.clazz, "width", "I");
+	cef_popup_features_tFc.widthSet = (*env)->GetFieldID(env, cef_popup_features_tFc.clazz, "widthSet", "I");
+	cef_popup_features_tFc.height = (*env)->GetFieldID(env, cef_popup_features_tFc.clazz, "height", "I");
+	cef_popup_features_tFc.heightSet = (*env)->GetFieldID(env, cef_popup_features_tFc.clazz, "heightSet", "I");
+	cef_popup_features_tFc.menuBarVisible = (*env)->GetFieldID(env, cef_popup_features_tFc.clazz, "menuBarVisible", "I");
+	cef_popup_features_tFc.statusBarVisible = (*env)->GetFieldID(env, cef_popup_features_tFc.clazz, "statusBarVisible", "I");
+	cef_popup_features_tFc.toolBarVisible = (*env)->GetFieldID(env, cef_popup_features_tFc.clazz, "toolBarVisible", "I");
+	cef_popup_features_tFc.locationBarVisible = (*env)->GetFieldID(env, cef_popup_features_tFc.clazz, "locationBarVisible", "I");
+	cef_popup_features_tFc.scrollbarsVisible = (*env)->GetFieldID(env, cef_popup_features_tFc.clazz, "scrollbarsVisible", "I");
+	cef_popup_features_tFc.resizable = (*env)->GetFieldID(env, cef_popup_features_tFc.clazz, "resizable", "I");
+	cef_popup_features_tFc.fullscreen = (*env)->GetFieldID(env, cef_popup_features_tFc.clazz, "fullscreen", "I");
+	cef_popup_features_tFc.dialog = (*env)->GetFieldID(env, cef_popup_features_tFc.clazz, "dialog", "I");
+	cef_popup_features_tFc.additionalFeatures = (*env)->GetFieldID(env, cef_popup_features_tFc.clazz, "additionalFeatures", I_J);
+	cef_popup_features_tFc.cached = 1;
+}
+
+cef_popup_features_t *getcef_popup_features_tFields(JNIEnv *env, jobject lpObject, cef_popup_features_t *lpStruct)
+{
+	if (!cef_popup_features_tFc.cached) cachecef_popup_features_tFields(env, lpObject);
+	lpStruct->x = (*env)->GetIntField(env, lpObject, cef_popup_features_tFc.x);
+	lpStruct->xSet = (*env)->GetIntField(env, lpObject, cef_popup_features_tFc.xSet);
+	lpStruct->y = (*env)->GetIntField(env, lpObject, cef_popup_features_tFc.y);
+	lpStruct->ySet = (*env)->GetIntField(env, lpObject, cef_popup_features_tFc.ySet);
+	lpStruct->width = (*env)->GetIntField(env, lpObject, cef_popup_features_tFc.width);
+	lpStruct->widthSet = (*env)->GetIntField(env, lpObject, cef_popup_features_tFc.widthSet);
+	lpStruct->height = (*env)->GetIntField(env, lpObject, cef_popup_features_tFc.height);
+	lpStruct->heightSet = (*env)->GetIntField(env, lpObject, cef_popup_features_tFc.heightSet);
+	lpStruct->menuBarVisible = (*env)->GetIntField(env, lpObject, cef_popup_features_tFc.menuBarVisible);
+	lpStruct->statusBarVisible = (*env)->GetIntField(env, lpObject, cef_popup_features_tFc.statusBarVisible);
+	lpStruct->toolBarVisible = (*env)->GetIntField(env, lpObject, cef_popup_features_tFc.toolBarVisible);
+	lpStruct->locationBarVisible = (*env)->GetIntField(env, lpObject, cef_popup_features_tFc.locationBarVisible);
+	lpStruct->scrollbarsVisible = (*env)->GetIntField(env, lpObject, cef_popup_features_tFc.scrollbarsVisible);
+	lpStruct->resizable = (*env)->GetIntField(env, lpObject, cef_popup_features_tFc.resizable);
+	lpStruct->fullscreen = (*env)->GetIntField(env, lpObject, cef_popup_features_tFc.fullscreen);
+	lpStruct->dialog = (*env)->GetIntField(env, lpObject, cef_popup_features_tFc.dialog);
+	lpStruct->additionalFeatures = (cef_string_list_t)(*env)->GetIntLongField(env, lpObject, cef_popup_features_tFc.additionalFeatures);
+	return lpStruct;
+}
+
+void setcef_popup_features_tFields(JNIEnv *env, jobject lpObject, cef_popup_features_t *lpStruct)
+{
+	if (!cef_popup_features_tFc.cached) cachecef_popup_features_tFields(env, lpObject);
+	(*env)->SetIntField(env, lpObject, cef_popup_features_tFc.x, (jint)lpStruct->x);
+	(*env)->SetIntField(env, lpObject, cef_popup_features_tFc.xSet, (jint)lpStruct->xSet);
+	(*env)->SetIntField(env, lpObject, cef_popup_features_tFc.y, (jint)lpStruct->y);
+	(*env)->SetIntField(env, lpObject, cef_popup_features_tFc.ySet, (jint)lpStruct->ySet);
+	(*env)->SetIntField(env, lpObject, cef_popup_features_tFc.width, (jint)lpStruct->width);
+	(*env)->SetIntField(env, lpObject, cef_popup_features_tFc.widthSet, (jint)lpStruct->widthSet);
+	(*env)->SetIntField(env, lpObject, cef_popup_features_tFc.height, (jint)lpStruct->height);
+	(*env)->SetIntField(env, lpObject, cef_popup_features_tFc.heightSet, (jint)lpStruct->heightSet);
+	(*env)->SetIntField(env, lpObject, cef_popup_features_tFc.menuBarVisible, (jint)lpStruct->menuBarVisible);
+	(*env)->SetIntField(env, lpObject, cef_popup_features_tFc.statusBarVisible, (jint)lpStruct->statusBarVisible);
+	(*env)->SetIntField(env, lpObject, cef_popup_features_tFc.toolBarVisible, (jint)lpStruct->toolBarVisible);
+	(*env)->SetIntField(env, lpObject, cef_popup_features_tFc.locationBarVisible, (jint)lpStruct->locationBarVisible);
+	(*env)->SetIntField(env, lpObject, cef_popup_features_tFc.scrollbarsVisible, (jint)lpStruct->scrollbarsVisible);
+	(*env)->SetIntField(env, lpObject, cef_popup_features_tFc.resizable, (jint)lpStruct->resizable);
+	(*env)->SetIntField(env, lpObject, cef_popup_features_tFc.fullscreen, (jint)lpStruct->fullscreen);
+	(*env)->SetIntField(env, lpObject, cef_popup_features_tFc.dialog, (jint)lpStruct->dialog);
+	(*env)->SetIntLongField(env, lpObject, cef_popup_features_tFc.additionalFeatures, (jintLong)lpStruct->additionalFeatures);
+}
+#endif
+
 #ifndef NO_cef_process_message_t
 typedef struct cef_process_message_t_FID_CACHE {
 	int cached;
